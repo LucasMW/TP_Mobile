@@ -14,6 +14,7 @@ export class HomePage {
   selectedProduct: any;
   productFound:boolean = false;
   qrcodeStr : string;
+  qrcodeOk : boolean = false;
 
   constructor(public navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
@@ -26,12 +27,21 @@ export class HomePage {
         });
   }
 
+  isOk(str : string) : boolean {
+    
+    return str.length > 0; //TODO: Do proper checking
+  }
+  send() {
+    console.log("Enviando");
+  }
   scan() {
     this.selectedProduct = {};
     this.barcodeScanner.scan().then((barcodeData) => {
       console.log(barcodeData.text);
       this.qrcodeStr = barcodeData.text;
-
+      this.qrcodeOk = this.isOk(this.qrcodeStr);
+      console.log(this.qrcodeOk);
+      
 
       this.selectedProduct = this.products.find(product => product.plu === barcodeData.text);
       
