@@ -14,6 +14,7 @@
   <h1>
     <button ion-button color="dark" full round (click)="scan()">Start Scan</button>
   </h1>
+  <p id="display"> {{qrcodeStr}}</p>
 
   <ion-card *ngIf="productFound">
     <ion-card-header>

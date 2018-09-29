@@ -13,6 +13,7 @@ export class HomePage {
   products: any[] = [];
   selectedProduct: any;
   productFound:boolean = false;
+  qrcodeStr : string;
 
   constructor(public navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
@@ -28,19 +29,24 @@ export class HomePage {
   scan() {
     this.selectedProduct = {};
     this.barcodeScanner.scan().then((barcodeData) => {
+      console.log(barcodeData.text);
+      this.qrcodeStr = barcodeData.text;
+
+
       this.selectedProduct = this.products.find(product => product.plu === barcodeData.text);
-      if(this.selectedProduct !== undefined) {
-        this.productFound = true;
-        console.log(this.selectedProduct);
-      } else {
-        this.selectedProduct = {};
-        this.productFound = false;
-        this.toast.show('Product not found', '5000', 'center').subscribe(
-          toast => {
-            console.log(toast);
-          }
-        );
-      }
+      
+      // if(this.selectedProduct !== undefined) {
+      //   this.productFound = true;
+      //   console.log(this.selectedProduct);
+      // } else {
+      //   this.selectedProduct = {};
+      //   this.productFound = false;
+      //   this.toast.show('Product not found', '5000', 'center').subscribe(
+      //     toast => {
+      //       console.log(toast);
+      //     }
+      //   );
+      // }
     }, (err) => {
       this.toast.show(err, '5000', 'center').subscribe(
         toast => {
